@@ -1,0 +1,16 @@
+export { default as App } from './App';
+export * from './assets/atomos/icono';
+export * from './assets/moleculas/Btnsave';
+export * from './assets/templates/HomeTemplate';
+export * from './assets/templates/LoginTemplate';
+export * from './context/AuthContext';
+export * from './hooks/ProtectedRoute';
+// export * from './index';
+export * from './main';
+export * from './pages/Home';
+export * from './pages/Login';
+export * from './routers/routes';
+export * from './store/AuthStore';
+export * from './styles/themes';
+export * from './styles/variables';
+export * from './supabase/supabase.config';

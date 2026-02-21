@@ -18,5 +18,6 @@ export * from './store/AuthStore';
 export * from './styles/brackpoints';
 export * from './styles/themes';
 export * from './styles/variables';
+export * from './supabase/crudUsuarios';
 export * from './supabase/supabase.config';
 export * from './utils/dataEstatica';

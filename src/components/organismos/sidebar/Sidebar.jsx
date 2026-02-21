@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import {v,LinksArray} from "../../../index";
+import {v,LinksArray, SecondarylinksArray,SidebarCard} from "../../../index";
 import { NavLink } from "react-router-dom";
 
 
-export function Sidebar(state, setState) {
+export function Sidebar({state, setState}) {
     return (
         <Main isOpen={state}>
-            <Container>
+            <span className="Sidebarbutton" onClick={()=>setState(!state)}>
+                {<v.iconoflechaderecha/>}
+            </span>
+            <Container isOpen={state} className={state? "active" : ""}>
                 {/* contenedor de mi logo y title sidebar */}
                 <div className="Logocontent">
                     <div className="imgcontent">
@@ -20,17 +23,36 @@ export function Sidebar(state, setState) {
                         <div key={label} className={state ? "LinkContainer active" : 
                             "LinkContainer"
                          }>
-                            <NavLink to={to} className="Links">
+                            <NavLink to={to} className={({isActive}) => `Links${isActive ? ` active` : ``}`}>
                                 <div className="Linkicon">
                                     {icon}
                                 </div>
-                                <span>{label}</span>
+                                {state && <span>{label}</span>}
+                                
                             </NavLink>
                         </div>
                         
                     ))
                 };
                 <Divider/>
+                {
+                    SecondarylinksArray.map(({icon, label, to}) =>(
+                        <div key={label} className={state ? "LinkContainer active" : 
+                            "LinkContainer"
+                         }>
+                            <NavLink to={to} className={({isActive}) => `Links${isActive ? ` active` : ``}`}>
+                                <div className="Linkicon">
+                                    {icon}
+                                </div>
+                                {state && <span>{label}</span>}
+                                
+                            </NavLink>
+                        </div>
+                        
+                    ))
+                };
+                <Divider/>
+                {state && (<SidebarCard/>)}
             </Container>
         </Main>
     );
@@ -41,8 +63,24 @@ const Container =styled.div`
     background: ${(props) => props.theme.bg};
     position: fixed;
     padding-top: 20px;
-    z-index: 100;
+    z-index: 1;
     height: 100%;
+    width: 65px;
+    transition: 0.3s ease-in-out;
+    overflow-y: auto ;
+    overflow-x: hidden;
+    &::-webkit-scrollbar{
+        width: 6px;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: ${(props) => props.theme.colorScroll};
+        border-radius: 10px;
+    }
+
+    &.active{
+        width: 220px;
+    }
     .Logocontent{
         display: flex;
         justify-content: center;
@@ -99,19 +137,47 @@ const Container =styled.div`
                 font-size: 25px;
             }
         }
-        &::before{
-            content:"";
+        &.active{
+            color: ${(props) => props.theme.bg5};
+            &::before{
+                content:"";
+                position: absolute;
+                height: 100%;
+                background: ${(props) => props.theme.bg5};
+                width: 5px;
+                border-radius: 10px;
+                left: 0;
+            }
         }
+        
     }
 `
 
 const Main = styled.div`
+.Sidebarbutton{
+    position: fixed;
+    top: 70px;
+    left: 42px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background: ${(props) => props.theme.bgtgderecha};
+    box-shadow: 0 0 4px ${(props) => props.theme.bg3}, 0 0 7px ${(props) => props.theme.bg};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 100;
+    transform: ${({isOpen}) => (isOpen ? `translateX(162px) rotate(3.142rad)` : `initial`)};
     
+}
 `
 
 const Divider = styled.div`
     height: 1px;
     width: 100%;
-    background: ${(props) => props.theme.bg4} ;
-    margin: ${() => v.lgSpacing } 0;
+    background: ${(props) => props.theme.bg4};
+    margin: ${() => v.lgSpacing} 0;
+    
 `

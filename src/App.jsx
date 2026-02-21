@@ -17,7 +17,7 @@ function App() {
                 <ThemeProvider theme={themeStyle}>
                     <AuthContextProvider>
 
-                        <Container>
+                        <Container className={sideBarOpen ? "active" : ""}>
                             <div className="ContentSidebar">
                                 <Sidebar state={sideBarOpen} setState={setSideBarOpen} />
                             </div>
@@ -41,6 +41,8 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     background: ${(props) => props.theme.bgtotal};
+    transition: 0.3s ease-in-out;
+    
     .ContentSidebar{
         display: none;
     }
@@ -51,6 +53,9 @@ const Container = styled.div`
     }
     @media  ${Device.tablet}{
         grid-template-columns: 65px 1fr;
+        &.active{
+            grid-template-columns: 220px 1fr;
+        }
         .ContentSidebar{
             display: initial;
         }

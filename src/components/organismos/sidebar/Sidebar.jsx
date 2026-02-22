@@ -33,7 +33,7 @@ export function Sidebar({state, setState}) {
                         </div>
                         
                     ))
-                };
+                }
                 <Divider/>
                 {
                     SecondarylinksArray.map(({icon, label, to}) =>(
@@ -50,7 +50,7 @@ export function Sidebar({state, setState}) {
                         </div>
                         
                     ))
-                };
+                }
                 <Divider/>
                 {state && (<SidebarCard/>)}
             </Container>
